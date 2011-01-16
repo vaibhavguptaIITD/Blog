@@ -25,7 +25,10 @@ Blog.mainPage = SC.Page.design({
                  {title: 'Blog', 
                  value: 'Blog.mainPage.blogList'},
                  {title: 'About',
-                 value:'Blog.mainPage.aboutView'}
+                 value:'Blog.mainPage.aboutView'},
+                 {title:'Admin',
+                 value:'Blog.mainPage.adminView'
+                 }
                ] 
     }),
     bottomView: SC.ToolbarView.design({
@@ -80,6 +83,55 @@ Blog.mainPage = SC.Page.design({
    aboutView : SC.ScrollView.design({
    	layout: { top: 0, bottom: 0, left: 0, right: 0 },
     backgroundColor: 'white'
+   }),
+   
+   adminView : SC.View.design({
+	childViews: 'heading titleLabel titleInput categoryLabel categoryInput bodyLabel bodyInput completeButton'.w(),
+   	layout: { top: 0, bottom: 0, left: 0, right: 0 },
+    heading: SC.LabelView.design({
+    	layout:{top:40, left:20, height:18},
+        value: "Create your blog"
+    }),
+    titleLabel: SC.LabelView.design({
+    	layout:{top:60, left:20},
+        value: "Title:"
+    }),
+    titleInput: SC.TextFieldView.design({
+            layout: { top: 60, left: 240, width: 600, height:20 },
+            hint: "Enter title here".loc(),
+            valueBinding: "Blog.selectedBlogController.title"
+          }),
+    categoryLabel: SC.LabelView.design({
+    	layout:{top:90, left:20},
+        value: "Category:"
+    }),
+    categoryInput: SC.SelectButtonView.design({
+    	layout:{top:90, left:240,width:200},
+    	objects: [{ title: "None", value: 'none'},
+          { title: "Random", value:"Random" },
+          { title: "Javascript",value:"Javascript" }],
+        theme: 'square',
+        nameKey: 'title',
+        valueKey: 'value',
+        valueBinding:'Blog.selectedBlogController.category',
+        checkboxEnabled: YES
+    }),
+    bodyLabel: SC.LabelView.design({
+    	layout:{top:120, left:20},
+        value: "Body:"
+    }),
+      bodyInput: SC.TextFieldView.design({
+            layout: { top: 120, left: 240, width: 600, height:200 },
+            hint: "Enter body here".loc(),
+	        isTextArea: YES,
+            valueBinding: "Blog.selectedBlogController.body"
+      }),
+      completeButton: SC.ButtonView.design({
+      	layout:{top: 350, left:240, width:80},
+      	textAlign: SC.ALIGN_CENTER,
+      	title: "OK".loc()
+      	
+      })
    })
 
 });
